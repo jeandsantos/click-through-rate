@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "detailed": {
+      "class": "logging.Formatter",
+      "format": "[%(levelname)-8s|%(module)s|L%(lineno)d] %(asctime)s: %(name)-15s %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S%z"
+    },
+    "simple": {
+      "class": "logging.Formatter",
+      "format": "%(asctime)s %(levelname)-8s %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S%z"
+    },
+    "simple_rich": {
+      "class": "logging.Formatter",
+      "format": "%(module)s L%(lineno)d %(message)s",
+      "datefmt": "%Y-%m-%d %H:%M:%S%z"
+    },
+    "json": {
+      "()": "click_through_rate.logging.formatters.json_formatter.JSONFormatter",
+      "fmt_keys": {
+        "level": "levelname",
+        "message": "message",
+        "timestamp": "timestamp",
+        "logger": "name",
+        "module": "module",
+        "function": "funcName",
+        "line": "lineno",
+        "thread_name": "threadName"
+      }
+    }
+  },
+  "handlers": {
+    "streaming_handler": {
+      "class": "rich.logging.RichHandler",
+      "level": "DEBUG",
+      "formatter": "simple_rich",
+      "omit_repeated_times": false,
+      "show_level": true,
+      "show_path": false,
+      "enable_link_path": true,
+      "rich_tracebacks": true
+    },
+    "stderr": {
+      "class": "logging.StreamHandler",
+      "level": "WARNING",
+      "formatter": "simple",
+      "stream": "ext://sys.stderr",
+      "filters": [
+        "stderr_filter"
+      ]
+    },
+    "stdout": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout",
+      "filters": [
+        "stdout_filter"
+      ]
+    },
+    "file": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "json",
+      "filename": "logs/log.jsonl",
+      "maxBytes": 1000000,
+      "backupCount": 3,
+      "encoding": "utf8"
+    }
+  },
+  "filters": {
+    "stderr_filter": {
+      "()": "click_through_rate.logging.filters.stderr_filter.StderrFilter"
+    },
+    "stdout_filter": {
+      "()": "click_through_rate.logging.filters.stdout_filter.StdoutFilter"
+    }
+  },
+  "loggers": {
+    "": {
+      "level": "DEBUG",
+      "handlers": [
+        "file",
+        "streaming_handler"
+      ],
+      "propagate": false
+    },
+    "__main__": {
+      "level": "DEBUG",
+      "handlers": [
+        "file",
+        "streaming_handler"
+      ],
+      "propagate": false
+    }
+  }
+}

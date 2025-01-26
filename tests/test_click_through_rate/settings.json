@@ -1,0 +1,68 @@
+{
+  "seed": 42,
+  "verbose": false,
+  "ingestion": {
+    "filepaths": {
+      "raw_train": "data/raw/train.csv",
+      "raw_test": "data/raw/test.csv",
+      "staged": "data/staged",
+      "modelling": "data/model"
+    },
+    "cloud_storage": {
+      "bucket_name": "ctr-prediction-raw",
+      "project_id": "ctr-prediction",
+      "train_blob_name": "train.gz",
+      "test_blob_name": "test.gz"
+    },
+    "partitions": {
+      "start_date": "2014-10-21",
+      "end_date": "2014-10-30",
+      "date_partition_format": "%Y-%m-%d"
+    },
+    "device_types": {
+      "main": [
+        "1"
+      ],
+      "other": [
+        "0",
+        "2",
+        "3",
+        "4",
+        "5"
+      ]
+    }
+  },
+  "feature_engineering": {
+    "categorical_rare_label_encoder": true,
+    "categorical_impute_missing": true,
+    "categorical_one_hot_encoder": true,
+    "datetime_create_features": true,
+    "all_drop_duplicate": true,
+    "all_drop_constant": true,
+    "all_drop_missing": true,
+    "object_drop_columns": false,
+    "standardize": true
+  },
+  "training": {
+    "test_size": 0.2,
+    "search_iterations": 20,
+    "n_jobs": -1,
+    "models": [
+      "logistic_regression",
+      "random_forest",
+      "xgboost",
+      "gradient_boosting_trees"
+    ],
+    "cross_validation": {
+      "metric": "f1",
+      "folds": 5,
+      "scores": [
+        "f1",
+        "log_loss",
+        "accuracy",
+        "roc_auc",
+        "recall"
+      ]
+    }
+  }
+}

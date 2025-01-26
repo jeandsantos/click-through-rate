@@ -77,6 +77,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb
 
 # IPython
 profile_default/
@@ -167,18 +168,38 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# PyPI configuration file
-.pypirc
-
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
+*.code-workspace
 
 # Local History for Visual Studio Code
 .history/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Dagster files
+tmp*
+
+# Data files
+*.csv
+*.gz
+*.parquet
+*.db
+*.ddb
+*.duckdb
+clicks.db.tmp
+
+# Models
+.joblib
+*.joblib
+
+# Other
+.DS_Store
+
+# Logs
+/logs/

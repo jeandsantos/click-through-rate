@@ -22,7 +22,13 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
+    "faker>=35.0.0",
+    "isort>=5.13.2",
+    "mimesis>=18.0.0",
+    "pre-commit>=4.1.0",
+    "pre-commit-hooks>=5.0.0",
     "pytest>=8.3.4",
+    "ruff>=0.9.3",
 ]
 
 
@@ -40,3 +46,43 @@ markers = [
     "integration: marks integration tests (deselect with '-m \"not integration\"')",
     "smoke: quick test of major parts",
 ]
+
+
+[tool.ruff]
+
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # Pyflakes
+    "W",    # pycodestyle warnings
+    "I",    # isort
+    "N",    # pep8-naming
+    "D",    # pydocstyle
+    "UP",   # pyupgrade
+    "PL",   # pylint
+    "C",    # convention
+    "R",    # refactor
+    "RUF",  # ruff
+    "PERF", # performance
+
+]
+ignore = [
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public nested class
+    "D102", # Missing docstring in public class
+    "D103", # Missing docstring in public function
+    "D104", # Missing docstring in public package
+    "D106", # Missing docstring in public nested module
+    "D107", # Missing docstring in __init__
+    "D401", # First line should be in imperative mood
+]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

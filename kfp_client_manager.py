@@ -93,6 +93,7 @@ class KFPClientManager:
             data={"login": self._dex_username, "password": self._dex_password},
             allow_redirects=True,
             verify=not self._skip_tls_verify,
+            timeout=10,
         )
         if resp.status_code != 200:
             raise RuntimeError(f"HTTP status code '{resp.status_code}' for POST against: {dex_login_url}")
@@ -112,6 +113,7 @@ class KFPClientManager:
                 data={"approval": "approve"},
                 allow_redirects=True,
                 verify=not self._skip_tls_verify,
+                timeout=10,
             )
             if resp.status_code != 200:
                 raise RuntimeError(f"HTTP status code '{resp.status_code}' for POST against: {url_obj.geturl()}")

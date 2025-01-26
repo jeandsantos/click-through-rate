@@ -2,6 +2,8 @@ from kfp import dsl
 
 from kfp_client_manager import KFPClientManager
 
+CLIENT_API_URL = "http://localhost:8080/pipeline"
+
 
 @dsl.component(base_image="python:3.12")
 def say_hello(name: str) -> str:
@@ -18,7 +20,7 @@ def hello_pipeline(recipient: str) -> str:
 
 def main():
     kfp_client_manager = KFPClientManager(
-        api_url="http://localhost:8080/pipeline",
+        api_url=CLIENT_API_URL,
         skip_tls_verify=True,
         dex_username="user@example.com",
         dex_password="12341234",
@@ -30,7 +32,7 @@ def main():
 
     run = kfp_client.create_run_from_pipeline_func(
         pipeline_func=hello_pipeline,
-        experiment_name="hello-world-experiment",
+        experiment_name="hello-experiment",
         namespace="kubeflow-user-example-com",
         arguments={
             "recipient": "World",

@@ -3,8 +3,40 @@ name = "click-through-rate"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+authors = [
+    { name = "Jean Dos Santos", email = "jeandsantos88@gmail.com" }
+]
+requires-python = ">=3.12"
 dependencies = [
     "kfp>=2.11.0",
-    "pandas>=2.2.3",
+    "requests>=2.32.3",
+    "urllib3>=1.26.20",
+]
+
+[project.scripts]
+click-through-rate = "click_through_rate:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+]
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-ra"
+]
+testpaths = "tests"
+
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "bugs: tests that reproduce issues",
+    "integration: marks integration tests (deselect with '-m \"not integration\"')",
+    "smoke: quick test of major parts",
 ]

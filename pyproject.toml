@@ -5,6 +5,33 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "docker>=7.1.0",
     "kfp>=2.11.0",
     "pandas>=2.2.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-ra"
+]
+testpaths = "tests"
+
+pythonpath = "ctr_prediction"
+
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "bugs: tests that reproduce issues",
+    "integration: marks integration tests (deselect with '-m \"not integration\"')",
+    "smoke: quick test of major parts",
+]
+
+filterwarnings = [
+    "ignore::DeprecationWarning",
 ]

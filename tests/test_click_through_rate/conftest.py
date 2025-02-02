@@ -85,11 +85,6 @@ settings_json_template = Template("""{
 """)
 
 
-@pytest.fixture
-def url_data():
-    return "https://raw.githubusercontent.com/path/to/data.csv"
-
-
 @pytest.fixture(scope="module")
 def path_settings() -> Path:
     return PATH_SETTINGS
